@@ -1,35 +1,45 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
-    <main>
-      <div class="left-side">
-        <span class="title">
-          Welcome to your new project!
-        </span>
-        <system-information></system-information>
+    <div class="project-row">
+      <div class="title">
+        <div class="top">Current Repository</div>
+        <div class="bottom">toolbox</div>
       </div>
+      <div class="search-area">
+        <input type="text" placeholder="Filter">
+        <button>Add</button>
+      </div>
+      <div class="project-list">
+        <div class="project-item" v-for="item in [1, 2]" :key="item">ci-code-blog</div>
+      </div>
+    </div>
 
-      <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
+    <div class="main">
+      <div class="title">
+        <div class="bottom">sh list</div>
+      </div>
+      <div class="content">
+        <div class="left">
+          <div class="sh-item" v-for="item in [1, 2]" :key="item">
+            <span>切换分支并提交</span>
+          </div>
         </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+        <div class="right" v-html="" contenteditable="true">
+          git commit <br>
+          git push
         </div>
       </div>
-    </main>
+    </div>
+    <!-- <div class="code">function a() {}</div> -->
   </div>
 </template>
 
 <script>
+  import hljs from 'highlight.js'
+  import 'highlight.js/styles/github.css'
+  import shell from 'highlight.js/lib/languages/shell'
+  hljs.registerLanguage('shell', shell)
+  // hljs.configure({useBR: true})
   import SystemInformation from './LandingPage/SystemInformation'
 
   export default {
@@ -39,6 +49,12 @@
       open (link) {
         this.$electron.shell.openExternal(link)
       }
+    },
+    mounted() {
+      document.querySelectorAll('.content > .right').forEach((block) => {
+        // console.log(hljs.listLanguages());
+        hljs.highlightBlock(block);
+      });
     }
   }
 </script>
@@ -54,75 +70,96 @@
 
   body { font-family: 'Source Sans Pro', sans-serif; }
 
-  #wrapper {
-    background:
-      radial-gradient(
-        ellipse at top left,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(229, 229, 229, .9) 100%
-      );
-    height: 100vh;
-    padding: 60px 80px;
-    width: 100vw;
-  }
+#wrapper{
+  display: flex;
+}
+.project-row {
+  width: 200px;
+  background: #3c4349;
+  color: #fff;
+  font-size: 14px;
+  height: 100vh;
+}
+.title{
+  height: 44px;
+  background: #3c4349;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px 5px 30px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.title .top{
+  opacity: 0.7;
+  font-size: 12px;
+}
+.title .bottom{
+  font-weight: bold;
+}
+.search-area{
+  padding: 10px 10px 5px 10px;
+  display: flex;
+}
+.search-area input{
+  border: none;
+  height: 22px;
+  border-radius: 2px;
+  text-indent: 8px;
+  margin-right: 10px;
+  flex: 1;
+}
+.search-area button{
+  border: 1px solid #ccc;
+  background: #eee;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  width: 50px;
+}
+.project-list{
+  margin-top: 20px;
+  width: 100%;
 
-  #logo {
-    height: auto;
-    margin-bottom: 20px;
-    width: 420px;
-  }
-
-  main {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  main > div { flex-basis: 50%; }
-
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
-  }
-
-  .title {
-    color: #2c3e50;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .doc p {
-    color: black;
-    margin-bottom: 10px;
-  }
-
-  .doc button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
-    color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
-  }
-
-  .doc button.alt {
-    color: #42b983;
-    background-color: transparent;
-  }
+}
+.project-item{
+  padding: 3px 20px;
+  box-sizing: border-box;
+}
+.project-item:hover{
+  background: #555;
+}
+.main{
+  border-left: 1px solid #111;
+  flex: 1;
+  color: #fff;
+  height: 100%;
+}
+.main .content{
+  position: absolute;
+  top: 44px;
+  left: 200px;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  color: #222;
+  box-sizing: border-box;
+}
+.main .content .left{
+  width: 200px;
+  border-right: 1px solid #ccc;
+}
+.main .content .left .sh-item{
+  padding: 4px 5px 4px 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+.main .content .left .sh-item:hover{
+  background: #ccc;
+  cursor: pointer;
+}
+.main .content .right{
+  flex: 1;
+}
 </style>
