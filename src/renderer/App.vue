@@ -6,10 +6,13 @@
 
 <script>
   export default {
-    name: 'electron-own-operation'
+    name: 'sh-operation'
   }
 </script>
 
 <style>
   /* CSS */
+  *{
+    outline: none;
+  }
 </style>

@@ -1,6 +1,6 @@
 {
-  "name": "electron-own-operation",
-  "productName": "electron-own-operation",
+  "name": "sh-operation",
+  "productName": "sh-operation",
   "version": "0.0.1",
   "author": "bibidu <787753295@qq.com>",
   "description": "An electron-vue project",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "child_process": "^1.0.2",
     "highlight.js": "^9.15.9",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
