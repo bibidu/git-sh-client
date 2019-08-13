@@ -7,14 +7,14 @@
       <div class="modal-inner">
         <div class="label">任务名称</div>
         <div class="modal-left">
-          <input v-model="task.taskName" />
+          <input v-model="taskInfo.taskName" />
           
         </div>
         <div class="label">执行脚本</div>
         <!-- <pre style="border:1px solid #eee;" contenteditable="true">
           {{shScript}}
         </pre>   -->
-        <textarea class="textarea" v-model="task.shScript" />
+        <textarea class="textarea" v-model="taskInfo.shScript" />
       </div>
       <div class="btn-group">
         <button class="confirm" @click='confirm'>Confirm</button>
@@ -27,14 +27,21 @@
 <script>
   export default {
     name: 'AddTaskModal',
-    props: ['show'],
-    data() {
-      return {
-        task: { shScript: '', taskName: '' }
+    props: {
+      show: {
+        type: Boolean
+      },
+      task: {
+        type: Object
+      }
+    },
+    computed: {
+      taskInfo() {
+        return this.task
       }
     },
     methods: {
-      confirm() { this.$emit('confirm', this.task) },
+      confirm() { this.$emit('confirm', this.taskInfo) },
       cancel() { this.$emit('cancel') }
     },
     mounted() {
