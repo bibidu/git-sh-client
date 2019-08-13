@@ -107,25 +107,16 @@
       }
     },
     methods: {
-      execSync(cwd, command, projectIndex, taskIndex) {
-        const cmds = command.split('\n').map(trim)
-        console.log(cmds);
-        console.log(cwd);
-        // const taskItem = JSON.parse(JSON.stringify(this.projectList[projectIndex].tasks[taskIndex]))
-        const item = this.projectList[projectIndex].tasks[taskIndex]
-        item.result = item.result || ''
-        cmds.forEach(cmd => {
-          let result
-          try {
-            result = execSync(cmd, { cwd })
-          } catch (error) {
-            console.log('error');
-            console.log(error);
-            result = error
-          }
-          this.projectList[projectIndex].tasks[taskIndex].result += result.toString() + '\n'
-        })
-        this.$forceUpdate()
+      execSync(cwd, cmd) {
+        let result
+        try {
+          result = execSync(cmd, { cwd })
+        } catch (error) {
+          console.log('error');
+          console.log(error);
+          result = error
+        }
+        return result
       },
       lookProject(project) {
         console.log(project);
@@ -200,11 +191,26 @@
       // 构建
       build(task, index, cwd) {
         this.taskIndex = index
-        this.execSync(cwd, task.shScript, this.projectIndex, this.taskIndex)
+
+        const cmds = task.shScript.split('\n').map(trim)
+
+        const item = this.projectList[this.projectIndex].tasks[this.taskIndex]
+        item.result = item.result || ''
+
+        cmds.forEach(cmd => {
+          const result = this.execSync(cwd, cmd)
+          this.projectList[this.projectIndex].tasks[this.taskIndex].result += result.toString() + '\n'
+        })
+        this.$forceUpdate()
       },
       del(item, index) {
         this.projectList[this.projectIndex].tasks.splice(index, 1)
         this.setCacheProjects()
+      },
+      fetchProjectBranch() {
+        this.projectList.forEach(item => {
+
+        })
       },
       setCacheProjects() {
         const projects = {
