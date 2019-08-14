@@ -81,6 +81,23 @@
 
   const trim = str => str.replace(/^\s*/, '').replace(/\s*$/, '')
 
+  const baseTask = [
+    {
+      taskName: '查看提交记录',
+      shScript: `git log`
+    },
+    {
+      taskName: '提交当前分支',
+      shScript: `git add .
+git pull origin
+git commit -m "..."
+git push origin`
+    },
+    {
+      taskName: '查看git状态',
+      shScript: `git status`
+    }
+  ]
   export default {
     name: 'landing-page',
     components: {
@@ -153,8 +170,9 @@
           id: this.projectList.length,
           projectName,
           cwd,
-          tasks: [],
+          tasks: JSON.parse(JSON.stringify(baseTask))
         })
+        this.fetchProjectBranch(this.projectList.length - 1)
         this.taskIndex = -1
         this.projectIndex = this.projectList.length - 1
         this.showModal = false
@@ -234,8 +252,8 @@
       grabCurrBranch(str) {
         return /\*\s(\w+)/.exec(str)[1]
       },
-      fetchProjectBranch() {
-        this.projectList.forEach(item => {
+      fetchProjectBranch(index) {
+        (index > -1 ? this.projectList.slice(index, index + 1) : this.projectList).forEach(item => {
           const { error, result } = this.execSync(item.cwd, `git branch`)
           if (!error) {
             item.branch = this.grabCurrBranch(result)
