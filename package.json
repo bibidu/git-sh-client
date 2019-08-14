@@ -26,12 +26,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "child_process": "^1.0.2",
+    "g": "^2.0.1",
     "highlight.js": "^9.15.9",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vuex-electron": "^1.0.0",
+    "wire": "^1.1.8"
   },
   "devDependencies": {
     "ajv": "^6.5.0",

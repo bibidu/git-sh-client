@@ -6,10 +6,10 @@
         <div class="bottom" v-if="projectList[projectIndex]">{{projectList[projectIndex].projectName}}</div>
         <div v-else class="bottom" @click='createProject'>添加仓库</div>
       </div>
-      <div class="search-area">
+      <!-- <div class="search-area">
         <input type="text" placeholder="Filter">
         <button @click='createProject'>Add</button>
-      </div>
+      </div> -->
       <div class="project-list">
         <div :class="{'project-item': true, 'project-item-checked': index === projectIndex}" v-for="(item, index) in projectList" :key="item.id" @click='togProject(item, index)'>
           <img class="branch" src="~@/assets/branch.png" alt="">
@@ -241,6 +241,7 @@
             item.branch = this.grabCurrBranch(result)
           }
         })
+        this.$forceUpdate()
       },
       setCacheProjects() {
         const projects = {
@@ -254,10 +255,10 @@
         let projects = localStorage.getItem('projects')
         if (projects && (projects = JSON.parse(projects))) {
           const { projectList, projectIndex, taskIndex } = projects
+          this.projectList = projectList
+          this.projectIndex = projectIndex
+          this.taskIndex = taskIndex
           this.$nextTick(() => {
-            this.projectList = projectList
-            this.projectIndex = projectIndex
-            this.taskIndex = taskIndex
             this.fetchProjectBranch()
           })
         }
