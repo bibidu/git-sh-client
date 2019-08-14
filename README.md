@@ -6,13 +6,13 @@
 
 # 图示
 - 客户端首页
-![](https://github.com/bibidu/electron-operation/blob/master/screenShots/home.png)
+![](https://github.com/bibidu/electron-operation/blob/master/screenShots/home1.png)
 
 - 导入本地git仓库
 ![](https://github.com/bibidu/electron-operation/blob/master/screenShots/create-repository.png)
 
 - 执行submit脚本
-![](https://github.com/bibidu/electron-operation/blob/master/screenShots/update.png)
+![](https://github.com/bibidu/electron-operation/blob/master/screenShots/home.png)
 
 - 修改脚本信息
 ![](https://github.com/bibidu/electron-operation/blob/master/screenShots/update.png)
