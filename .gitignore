@@ -48,6 +48,8 @@ typings/
 # Optional REPL history
 .node_repl_history
 
+dist/
+build/
 # Output of 'npm pack'
 *.tgz
 
@@ -59,6 +61,3 @@ typings/
 
 # next.js build output
 .next
-
-dist/
-build/!icons
