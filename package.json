@@ -24,7 +24,7 @@
     "postinstall": ""
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "child_process": "^1.0.2",
     "g": "^2.0.1",
     "highlight.js": "^9.15.9",
